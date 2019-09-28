@@ -1,6 +1,12 @@
 import { storeFactory } from '../test/testUtils';
 import { guessWord } from './actions';
 
+/*
+  1. Create a store with initial state;
+  2. Dispatch action creator;
+  3. Check state.
+*/
+
 describe('guessWord action dispatcher', () => {
   const secretWord = 'party';
   const unsuccessfulGuess = 'train';
@@ -57,8 +63,11 @@ describe('guessWord action dispatcher', () => {
       const expectedState = {
         ...initialState,
         success: false,
-        guessedWords: [...guessedWords, { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }]
-      }
+        guessedWords: [
+          ...guessedWords,
+          { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
+        ]
+      };
       expect(newState).toEqual(expectedState);
     });
 
@@ -68,8 +77,11 @@ describe('guessWord action dispatcher', () => {
       const expectedState = {
         ...initialState,
         success: true,
-        guessedWords: [...guessedWords, { guessedWord: secretWord, letterMatchCount: secretWord.length }]
-      }
+        guessedWords: [
+          ...guessedWords,
+          { guessedWord: secretWord, letterMatchCount: secretWord.length }
+        ]
+      };
       expect(newState).toEqual(expectedState);
     });
   });
