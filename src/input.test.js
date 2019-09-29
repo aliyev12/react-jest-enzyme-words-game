@@ -1,13 +1,23 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import configureMockStore from 'redux-mock-store';
 
 import { findByTestAttr, storeFactory } from '../test/testUtils';
 const diveTwice = sw => sw.dive().dive();
 import Input from './Input';
 
+// Regular setup using actual redux - same as the one for development
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
   const wrapper = diveTwice(shallow(<Input store={store} />));
+  return wrapper;
+};
+
+// We use this setupWithMockStore when we use  redux-mock-store to test props from mapStateToProps
+const setupWithMockStore = (initialState = {}) => {
+  const mockStore = configureMockStore();
+  const store = mockStore(initialState);
+  const wrapper = shallow(<Input store={store} />).dive();
   return wrapper;
 };
 
@@ -58,11 +68,18 @@ describe('render', () => {
   });
 });
 
-describe('update state', () => {
-  // test('renders component without error ', () => {
-  // });
-  // test('does NOT render input box', () => {
-  // });
-  // test('does NOT render submit button', () => {
-  // });
+// To test props from mapStateToProps on functional components, we need to use redux-mock-store and therefore use a setupWithMockStore() as well
+describe('redux props', () => {
+  test('has success piece of state as prop', () => {
+    const success = true;
+    const wrapper = setupWithMockStore({ success });
+    const successProp = wrapper.prop('success');
+    expect(successProp).toBe(success);
+  });
+
+  test('`guessWord` action creator is a function prop', () => {
+    const wrapper = setupWithMockStore();
+    const guessWordProp = wrapper.prop('guessWord');
+    expect(guessWordProp).toBeInstanceOf(Function);
+  });
 });

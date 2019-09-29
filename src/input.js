@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+
+import { guessWord } from './actions';
 
 const Input = ({ success }) => {
   const contents = success ? null : (
@@ -22,4 +24,4 @@ const mapStateToProps = ({ success }) => {
   return { success };
 };
 
-export default connect(mapStateToProps)(Input);
+export default connect(mapStateToProps, { guessWord })(Input);
