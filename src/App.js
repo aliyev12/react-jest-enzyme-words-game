@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import GuessedWords from './GuessedWords';
 import Congrats from './Congrats';
@@ -7,7 +7,14 @@ import ErrorBoundary from './ErrorBoundary';
 import { getSecretWord } from './actions';
 import './App.css';
 
-const App = ({ success, guessedWords }) => {
+export const UnconnectedApp = ({ success, guessedWords, secretWord, getSecret }) => {
+  const componentMounted = () => {}
+  useEffect(() => {
+    componentMounted();
+  },[]);
+
+  
+
   return (
     <div className="container" data-testid="app-component">
       <h1>Words Game</h1>
@@ -28,4 +35,7 @@ const mapStateToProps = ({ success, guessedWords, secretWord }) => ({
   secretWord
 });
 
-export default connect(mapStateToProps, { getSecretWord })(App);
+export default connect(mapStateToProps, { getSecret: getSecretWord })(UnconnectedApp);
+
+
+

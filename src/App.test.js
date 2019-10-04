@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
-import App from './App';
+import App, { UnconnectedApp } from './App';
 import { findByTestAttr } from '../test/testUtils';
 
 const setupWithMockStore = (initialState = {}) => {
