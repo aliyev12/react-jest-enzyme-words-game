@@ -5,12 +5,8 @@ import './App.css';
 
 const App = () => {
   return (
-    <div className="container">
-        <h1>Words Game</h1>
-        <Congrats success={true} />
-        <GuessedWords guessedWords={[
-          { guessedWord: 'train', letterMatchCount: 3 }
-        ]} />
+    <div data-testid="component-app" className="container">
+
     </div>
   );
 }
