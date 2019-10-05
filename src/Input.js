@@ -6,7 +6,14 @@ const Input = ({ secretWord }) => {
 
   return (
     <div data-testid="component-input">
-      <form className="form-inline">
+      <form 
+      data-testid="form"
+      className="form-inline" 
+      onSubmit={e => {
+        e.preventDefault();
+        setCurrentGuess('');
+      }}
+      >
         <input
           data-testid="input-box"
           className="mb-2 mx-sm-3"
